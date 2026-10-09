@@ -4,7 +4,7 @@
 
 [English](README.md) | [Русский](README.ru.md) | [User Guide](guide.md) | [License](LICENSE.md) | [Privacy Policy](PRIVACY.md)
 
-![OnSet Gallery Interface](guide/03-gallery.png)
+![OnSet Gallery Interface](guide/en/03-gallery.png)
 
 OnSet Gallery is a professional desktop culling and live review tool designed for commercial, studio, event, and on-location photographers, digital technicians (digitechs), and photo assistants. It eliminates the post-shoot review bottleneck by enabling rapid curation right at the point of capture.
 

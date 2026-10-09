@@ -38,7 +38,7 @@ Download the latest version from the **[GitHub Releases](https://github.com/konu
 
 Upon launching OnSet Gallery without active sessions, the welcome screen prompts you to designate a shoot directory. The target folder may contain standard JPEGs or camera RAW files (such as `.ARW`, `.CR2`, `.CR3`, `.NEF`). RAW images are rendered using their embedded high-resolution previews for maximum speed.
 
-![Session Selection Screen](guide/01-sessions.png)
+![Session Selection Screen](guide/en/01-sessions.png)
 
 You can open a session through multiple methods:
 
@@ -54,7 +54,7 @@ You can open a session through multiple methods:
 
 Opening a session displays the main gallery interface: the current image in high resolution, the bottom filmstrip showing the full sequence, and frame metadata (counter, filename, dimensions) in the status overlay.
 
-![Gallery Review View](guide/03-gallery.png)
+![Gallery Review View](guide/en/03-gallery.png)
 
 OnSet Gallery is designed around single-key keyboard operations:
 
@@ -74,7 +74,7 @@ OnSet Gallery is designed around single-key keyboard operations:
 
 Ratings are reflected immediately on both the active frame and the filmstrip thumbnails:
 
-![Rating a Frame](guide/04-like.png)
+![Rating a Frame](guide/en/04-like.png)
 
 ### Quick Filters & Reject Management
 At the top of the filmstrip, filter chips let you isolate subsets:
@@ -94,7 +94,7 @@ When shooting tethered or receiving frames via FTP, toggle **Follow Mode** (`Spa
 
 Press `G` or click the grid icon in the bottom toolbar to switch into the Overview Grid. This view allows you to inspect entire burst sequences and spot subtle variations in pose or expression.
 
-![Overview Grid View](guide/05-grid.png)
+![Overview Grid View](guide/en/05-grid.png)
 
 ### Automated Pre-Cull
 When shooting rapid bursts, repetitive frames accumulate quickly. The **Pre-cull** feature executes a local, hardware-accelerated analysis of the active session:
@@ -110,7 +110,7 @@ When shooting rapid bursts, repetitive frames accumulate quickly. The **Pre-cull
 
 Click the **Export** button in the upper toolbar to transfer your on-set selections to your editing catalog.
 
-![Metadata Export Dialog](guide/06-export.png)
+![Metadata Export Dialog](guide/en/06-export.png)
 
 ### Export Modes
 

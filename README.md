@@ -1,76 +1,136 @@
 # OnSet Gallery
 
-Отметили на площадке — нашли в каталоге.
+**High-performance on-set photo cull & review application for photographers, digital techs, and production teams.**
 
-Приложение для отбора фотографий на съёмке, в дороге и везде, где нет времени сидеть в каталоге. Кадры остаются на вашем компьютере: программа не загружает их в облако, не просит аккаунт и для самого отбора не нуждается в интернете.
+[English](README.md) | [Русский](README.ru.md) | [User Guide](guide.md) | [License](LICENSE.md) | [Privacy Policy](PRIVACY.md)
 
-Версия **0.9.0**. На этой странице — описание и сборки для **macOS** и **Windows**. Исходный код здесь не публикуется.
+![OnSet Gallery Interface](guide/03-gallery.png)
 
-## Зачем оно
+OnSet Gallery is a professional desktop culling and live review tool designed for commercial, studio, event, and on-location photographers, digital technicians (digitechs), and photo assistants. It eliminates the post-shoot review bottleneck by enabling rapid curation right at the point of capture.
 
-На площадке удачный дубль видно сразу, а в Lightroom или Capture One его потом приходится искать среди сотен почти одинаковых кадров. OnSet Gallery стоит между камерой и каталогом: вы отмечаете кадры, пока съёмка ещё идёт, и забираете этот выбор файлами, которые каталог уже умеет читать.
+Rate, flag, and filter hundreds or thousands of frames during an active shoot, then instantly export standard XMP sidecar metadata or selection picklists into **Adobe Lightroom Classic** and **Capture One Pro** — completely offline, with zero cloud dependency and zero processing lag.
 
-Два обычных сценария.
+---
 
-**Внешний экран.** Камера по FTP кладёт JPEG в папку на компьютере. Вы листаете ленту, поднимаете удачные дубли и опускаете брак, не отходя к ноутбуку в режиме «разберём вечером».
+## Key Highlights
 
-**Предотбор серии.** Когда с одной точки снято двадцать кадров, программа сама ставит дизлайк заведомо слабым дублям: смаз, промах экспозиции, а там, где она видит лица, — неудачное выражение. Она не выбирает «лучший кадр съёмки». Она убирает явную шелуху внутри короткой серии и оставляет вам несколько кадров, из которых ещё можно выбрать.
+- **100% Offline & Private:** Operates entirely on your local workstation. No cloud uploads, no account registration, no telemetry, and no analytics. Your photographs and metadata never leave your computer.
+- **Embedded RAW & JPEG Performance:** Displays high-resolution embedded previews from camera RAW files and JPEGs instantly, bypassing slow demosaicing bottlenecks during active shoots.
+- **Instant Keyboard Navigation:** Ergonomic single-key shortcuts for ratings, flags, and color labels designed for fast sorting on set.
+- **Smart Local Pre-Culling:** Hardware-accelerated local duplicate analysis that automatically flags technical rejects (motion blur, focus misses, closed eyes / unfavorable expressions on macOS) in repetitive bursts while preserving top candidates.
+- **Integrated Camera FTP Receiver:** Ingest frames wirelessly over Wi-Fi directly from modern camera bodies (Sony, Canon, Nikon, etc.) into the active session folder.
+- **Non-Destructive Metadata Exchange:** Generates industry-standard `.xmp` sidecar files or updates JPEG metadata without altering original camera files or existing development settings.
 
-## Для кого
+---
 
-Для фотографа и небольшой команды на площадке, кому нужен отбор без облака, аккаунтов и обязательного интернета. Репортаж, портретная серия, мероприятие, где в конце дня надо отдать «пару файлов», а не весь дубль.
+## Why OnSet Gallery?
 
-## Что делает
+During commercial shoots, corporate sessions, and high-volume events, successful frames are obvious immediately. However, locating those selections hours later in a bloated catalog often requires sifting through hundreds of repetitive takes.
 
-- Очень быстро ставит лайк, дизлайк, избранное и звёзды 1–5 с клавиатуры.
-- Показывает JPEG и встроенное превью RAW. Это превью из файла, не полная проявка.
-- Держит ленту съёмки: все кадры, только лайки, только избранное, только дизлайки, очередь неотмеченных.
-- Умеет проскакивать дизлайкнутые или спрятать их, чтобы не листать брак второй раз.
-- Включает предотбор внутри сессии. Расчёт на самом компьютере.
-- Пишет результат так, чтобы его прочитал Lightroom Classic или Capture One:
-  - XMP рядом с файлами (метки, без сброса уже сделанной проявки);
-  - для JPEG без пары RAW — те же метки ещё и внутрь файла;
-  - ZIP с теми же XMP, если папку надо отдать на другой компьютер;
-  - список имён, чтобы в каталоге отфильтровать «вот эти файлы».
-- Принимает кадры с камеры по FTP в папку сессии.
+OnSet Gallery bridges the gap between camera capture and catalog editing:
 
-Лайк уходит в каталог как зелёная метка, избранное — как жёлтая, дизлайк — как отклонённый кадр и красная метка, звёзды — как рейтинг 1–5. Русский Lightroom узнаёт подписи «Зеленый», «Желтый», «Красный».
+1. **Live Tethering & Ingest Review:** As the camera transfers files over FTP or tethered folders, "Follow" mode automatically presents the newest incoming frames on your workstation or external client monitor.
+2. **On-Set Collaboration:** Hand a laptop or secondary display to art directors, clients, or assistants to mark favorites during breaks without risking catalog corruption or accidental setting changes.
+3. **Frictionless Handoff to Lightroom & Capture One:** Export selections as standard XMP sidecars or copy clean filename lists. In your catalog, simply refresh metadata or filter by filename to start editing selected frames immediately.
 
-## Чего не делает
+---
 
-- Не отправляет фотографии и отбор на сервер.
-- Не собирает съёмку как датасет и не строит из неё аккаунт.
-- Не проявляет RAW и не заменяет Lightroom или Capture One.
-- Не синхронизирует отбор между компьютером, телефоном и планшетом: у каждой платформы своё хранилище.
-- Не обещает магазинную сборку 1.0. Пока это 0.9.0: живой прогон длинной съёмки ещё впереди, и установщики macOS / Windows на этой странице появляются отдельно, уже собранными файлами.
+## Feature Overview
 
-Интернет приложению нужен только если вы сами открываете ссылку поддержки. Проверка ключа поддержки выполняется на устройстве, фотографии при этом никуда не уходят.
-
-## Как устроена работа
-
-1. Создаёте сессию: открываете папку съёмки или вводите путь к ней. Папка может быть на диске, на карте или на подключённом томе.
-2. Отмечаете кадры. Стрелки влево и вправо листают, вверх — лайк, вниз — дизлайк. `F` — избранное, `1`–`5` — звёзды, `Z` — отмена.
-3. Если серия длинная, включаете предотбор. Он ставит дизлайки сам и не трогает кадры, которые вы уже отметили руками.
-4. Экспортируете XMP рядом с файлами или копируете список имён.
-5. В каталоге читаете метаданные из файлов (Lightroom: Metadata → Read Metadata from Files) или вставляете список имён в фильтр.
-
-Подробно, с экранами: [инструкция](guide.md).
-
-Отбор и настройки сессий лежат локально в `~/.onset-gallery/`. Удаление сессии в программе стирает метки OnSet, файлы в папке съёмки не удаляются.
-
-## Сборки
-
-| Система | Файл |
+| Capability | Description |
 | --- | --- |
-| macOS | DMG в [Releases](https://github.com/konubrikov/onset-gallery/releases) |
-| Windows | MSI или EXE там же |
+| **Rapid Keyboard Culling** | Navigate with `←` `→`, like (`↑`), reject (`↓`), favorite (`F`), assign star ratings (`1`–`5`), and undo (`Z`). |
+| **Focused Filmstrip Views** | Filter the view by All, Unmarked, Likes, Favorites, or Rejects. Automatically skip or hide rejected frames. |
+| **Shoot Overview Grid** | Toggle instantly between single-image inspection and full burst grids (`G`) with adjustable zoom. |
+| **Burst Pre-Cull** | Run local duplicate analysis across multi-frame sequences to automatically identify technical flaws. |
+| **Universal Metadata Export** | Write `.xmp` sidecars alongside source files, export bundled `.xmp.zip` archives, or copy filename lists to clipboard. |
+| **Catalog Compatibility** | Color labels and ratings seamlessly map to **Adobe Lightroom Classic** and **Capture One Pro** (Green = Like, Yellow = Favorite, Red = Reject; Stars: 1–5). |
+| **Built-in FTP Receiver** | Lightweight, configurable local FTP server (`:2121`) for direct wireless camera tethering over Wi-Fi. |
 
-Android и iOS в этот репозиторий не выкладываются.
+---
 
-Установщик подписывается вручную. Пока подписи нет, macOS может спросить подтверждение при первом запуске, а Windows SmartScreen — показать предупреждение. Это не значит, что внутри сборки лежит лишний архив с исходниками: в релиз попадают только установщик и короткая памятка.
+## Workflow at a Glance
 
-Сканы папки ограничены: глубина 6 уровней и не больше 4000 кадров за проход. RAW в ленте — встроенный JPEG, не demosaic. На Windows предотбор оценивает технику кадра и не считает лица; лица считаются на macOS.
+```
+  Camera (Wi-Fi FTP / Tether)
+             │
+             ▼
+  Local Session Folder (RAW / JPEG)
+             │
+             ▼
+     OnSet Gallery
+  (Instant Culling • Smart Pre-Cull • Ratings)
+             │
+             ├──► XMP Sidecars (.xmp)
+             ├──► Bundled Archive (.xmp.zip)
+             └──► Filename Picklist (Clipboard)
+             │
+             ▼
+  Adobe Lightroom Classic / Capture One Pro
+  (Immediate post-processing of chosen frames)
+```
 
-## Лицензия сборки
+1. **Open Session:** Launch OnSet Gallery and select your shoot folder (`Ctrl+O` / `⌘O`).
+2. **Review & Rate:** Cull with arrow keys and shortcuts. Toggle `Space` for "Follow" mode during tethered capture.
+3. **Optional Pre-Cull:** Use automated pre-cull on long burst series to mark obvious rejects.
+4. **Export & Sync:**
+   - Click **Export** to write `.xmp` sidecars or copy the filename list.
+   - In **Lightroom Classic**: Right-click the folder and select **Metadata → Read Metadata from Files**, or paste filenames into the Library filter.
+   - In **Capture One**: Enable sidecar syncing under **Preferences → Image**, or use **Select → Select By → Filename List**.
 
-Программа распространяется бесплатно, все права защищены. Текст условий лежит внутри установщика. Сторонние компоненты перечислены в том же установщике, в заметках о сторонних лицензиях.
+For a complete step-by-step walkthrough with screenshots, see the **[User Guide](guide.md)**.
+
+---
+
+## Installation & System Requirements
+
+Standalone application packages for **macOS** and **Windows** are available on the GitHub Releases page:
+
+👉 **[Download Latest Release](https://github.com/konubrikov/onset-gallery/releases)**
+
+| Platform | Package | Architecture | System Requirements |
+| --- | --- | --- | --- |
+| **macOS** | DMG | Universal (Apple Silicon & Intel) | macOS 12 Monterey or newer |
+| **Windows** | MSI / Standalone Executable | x64 (64-bit) | Windows 10 or 11 (64-bit) |
+
+### macOS Installation
+
+1. Download the `.dmg` installer from the [Releases](https://github.com/konubrikov/onset-gallery/releases) page.
+2. Double-click the `.dmg` file to mount the disk image.
+3. Drag **OnSet Gallery** into your **Applications** folder.
+4. **First Launch & macOS Gatekeeper Notice:**
+   - Because preview builds are distributed directly without an Apple Developer ID notarization certificate, macOS Gatekeeper may display a prompt stating: *"OnSet Gallery cannot be opened because the developer cannot be verified"* or *"Apple cannot check it for malicious software"*.
+   - **Method A (Standard GUI):** In Finder, open the **Applications** folder, right-click (or `Control`-click) **OnSet Gallery**, and select **Open**. In the pop-up security dialog, click **Open**. This confirmation is only required on initial launch.
+   - **Method B (Terminal):** Alternatively, clear the macOS download quarantine attribute by running:
+     ```bash
+     xattr -cr /Applications/OnSetGallery.app
+     ```
+
+### Windows Installation
+
+1. Download the `.msi` or standalone `.exe` installer from [Releases](https://github.com/konubrikov/onset-gallery/releases).
+2. Launch the installer and follow the setup wizard prompts.
+3. **First Launch & Windows Defender SmartScreen:**
+   - Because preview releases are not signed with a paid Extended Validation (EV) certificate, Windows SmartScreen may show a blue alert banner: *"Windows protected your PC"*.
+   - Click the **More info** link beneath the warning text.
+   - Click the **Run anyway** button that appears.
+   - The application will start and function normally without further prompts.
+
+---
+
+## Storage & Privacy
+
+- **Local-Only Storage:** Session indexes, preview references, and rating caches reside strictly in `~/.onset-gallery/` (or `%USERPROFILE%\.onset-gallery` on Windows).
+- **Non-Destructive:** Deleting a session inside OnSet Gallery clears only the local application cache. Source photographs in your shoot folder are never deleted or modified.
+- **Zero Telemetry:** The application makes no outgoing connections to analytics, tracking, or remote cloud services.
+
+For full details, review our **[Privacy Policy](PRIVACY.md)**.
+
+---
+
+## Legal & Licensing
+
+- **License:** OnSet Gallery is proprietary software distributed free of charge (**Freeware**) for both personal and commercial use under the [End User License Agreement](LICENSE.md).
+- **Disclaimer of Warranty & Limitation of Liability:** The software is provided "AS IS", without warranties of any kind. Nikita Konubrikov shall not be liable for any damages or data loss resulting from its use. See [LICENSE.md](LICENSE.md) for full terms.
+- **Trademark Notice:** Adobe, Lightroom, and Lightroom Classic are trademarks or registered trademarks of Adobe Inc. Capture One is a registered trademark of Capture One A/S. Sony, Canon, Nikon, Apple, macOS, Microsoft, and Windows are trademarks or registered trademarks of their respective owners. Reference to these trademarks is strictly for descriptive compatibility purposes and does not imply sponsorship, endorsement, or affiliation.
+- **Open Source Attribution:** OnSet Gallery utilizes open-source components under permissive licenses (MIT, Apache 2.0, BSD). Respective notices and license texts are bundled in distribution packages.

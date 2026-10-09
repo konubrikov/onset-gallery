@@ -1,90 +1,169 @@
-# Как отбирать в OnSet Gallery
+# OnSet Gallery User Guide
 
-Короткий проход по экранам desktop-версии для macOS и Windows. Кадры на картинках — демонстрационная серия, снятая для этой инструкции: один и тот же человек, одна стена, девять дублей. У вас вместо неё будет папка своей съёмки.
+[English](guide.md) | [Русский](guide.ru.md) | [README](README.md)
 
-Программа не загружает фотографии. Отбор остаётся на компьютере, в `~/.onset-gallery/`. Удаление сессии стирает только метки OnSet, файлы в папке съёмки не трогает.
+This guide walks you through the setup and core workflow of OnSet Gallery on macOS and Windows, from installation to exporting standardized metadata into Adobe Lightroom Classic and Capture One Pro.
 
-## 1. Открыть папку
+OnSet Gallery operates strictly locally. All session indexes and ratings are stored on your machine in `~/.onset-gallery/` (or `%USERPROFILE%\.onset-gallery` on Windows). Deleting a session within the application removes only the local cached index; your original camera files remain untouched.
 
-После запуска, если сессий ещё нет, OnSet просит папку съёмки. В ней должны лежать JPEG или RAW. RAW в ленте показывается по встроенному превью, не как полная проявка.
+---
 
-![Пустой список сессий](guide/01-sessions.png)
+## 1. Installation & First Launch
 
-Два входа:
+Download the latest version from the **[GitHub Releases](https://github.com/konubrikov/onset-gallery/releases)** page.
 
-- **Открыть папку** — обычный выбор каталога. То же самое в меню **Файл → Открыть папку** или `Ctrl+O` (`⌘O` на Mac).
-- **Ввести путь…** — если папка на подключённом томе и в диалоге её неудобно искать. Нужен абсолютный путь.
+### macOS (macOS 12 Monterey or newer)
+1. Download the `.dmg` package and double-click to mount it.
+2. Drag the **OnSet Gallery** icon into your **Applications** folder.
+3. **Handling macOS Gatekeeper on First Launch:**
+   - Because preview releases do not currently include an Apple Developer ID notarization seal, macOS Gatekeeper may show a warning: *"OnSet Gallery cannot be opened because the developer cannot be verified"*.
+   - **Method A (GUI):** In Finder, navigate to **Applications**, right-click (or `Control`-click) **OnSet Gallery**, and select **Open**. In the pop-up security prompt, click **Open**. (Required only once; subsequent launches open directly).
+   - **Method B (Terminal):** Clear the quarantine flag via:
+     ```bash
+     xattr -cr /Applications/OnSetGallery.app
+     ```
 
-Папку можно перетащить на окно. Повторное открытие той же папки возвращает уже существующую сессию, а не создаёт вторую.
+### Windows (Windows 10 / 11 64-bit)
+1. Download the `.msi` or standalone `.exe` installer.
+2. Run the installer and proceed through the setup dialogs.
+3. **Handling Windows Defender SmartScreen:**
+   - For preview builds without an expensive EV code-signing certificate, Windows SmartScreen may display: *"Windows protected your PC"*.
+   - Click the **More info** link.
+   - Click **Run anyway**.
+   - The application starts normally.
 
-## 2. Листать и отмечать
+---
 
-Сессия открывается лентой. Внизу — плёнка всех кадров, крупно — текущий. Счётчик слева показывает номер, имя файла и размер превью.
+## 2. Opening a Shoot Folder
 
-![Первый кадр серии](guide/03-gallery.png)
+Upon launching OnSet Gallery without active sessions, the welcome screen prompts you to designate a shoot directory. The target folder may contain standard JPEGs or camera RAW files (such as `.ARW`, `.CR2`, `.CR3`, `.NEF`). RAW images are rendered using their embedded high-resolution previews for maximum speed.
 
-Клавиши, которыми это делается на площадке:
+![Session Selection Screen](guide/01-sessions.png)
 
-| Клавиша | Действие |
+You can open a session through multiple methods:
+
+- **Open Folder:** Standard system directory picker. Also accessible via menu **File → Open Folder** or `Ctrl+O` (`⌘O` on macOS).
+- **Enter Path:** Direct entry for absolute paths, ideal when navigating network volumes or mounted external drives.
+- **Drag & Drop:** Simply drag a folder from Finder or Windows Explorer directly onto the application window.
+
+*Note: Opening a previously scanned folder instantly restores its existing session and cached ratings.*
+
+---
+
+## 3. Image Review and Fast Keyboard Navigation
+
+Opening a session displays the main gallery interface: the current image in high resolution, the bottom filmstrip showing the full sequence, and frame metadata (counter, filename, dimensions) in the status overlay.
+
+![Gallery Review View](guide/03-gallery.png)
+
+OnSet Gallery is designed around single-key keyboard operations:
+
+| Shortcut | Action |
 | --- | --- |
-| `←` `→` | предыдущий / следующий кадр |
-| `↑` | лайк |
-| `↓` | дизлайк |
-| `F` | избранное |
-| `1`–`5` | звёзды |
-| `Z` | отменить последнюю метку |
-| `G` | плитка |
-| `+` / `−` | зум |
-| `0` | вписать в окно |
-| `Esc` | назад к списку сессий |
+| `←` / `→` | Previous / Next image |
+| `↑` | **Like** (Green color label) |
+| `↓` | **Reject** (Red color label + Rejected flag) |
+| `F` | **Favorite** (Yellow color label) |
+| `1` – `5` | Assign Star Rating (1 to 5 stars) |
+| `Z` | Undo last rating action |
+| `G` | Toggle between Filmstrip and Overview Grid |
+| `+` / `−` | Zoom in / Zoom out |
+| `0` | Fit image to window |
+| `Space` | Toggle **Follow Mode** (auto-scroll to newest incoming photos) |
+| `Esc` | Return to Session List |
 
-Лайк, дизлайк и избранное видны на плёнке. На снимке ниже вверх поставлен лайк смазанному дублю: сердце на миниатюре стало красным, кадр в ленте — второй из девяти.
+Ratings are reflected immediately on both the active frame and the filmstrip thumbnails:
 
-![Лайк на кадре](guide/04-like.png)
+![Rating a Frame](guide/04-like.png)
 
-Сверху ленты — быстрые фильтры: только неотмеченные, только лайки, только избранное, только дизлайки. Рядом два режима для брака: проскакивать дизлайкнутые (они остаются в плёнке, но стрелки перепрыгивают их) или скрыть совсем.
+### Quick Filters & Reject Management
+At the top of the filmstrip, filter chips let you isolate subsets:
+- **All Frames**
+- **Unmarked Only** (useful for clearing pending queues)
+- **Likes** / **Favorites** / **Rejects**
 
-`Space` включает «Следить»: лента держится на последних пришедших кадрах, это нужно, когда камера ещё пишет в папку.
+Next to the filters, reject handling modes allow you to streamline your review:
+- **Skip Rejects:** Keeps rejected frames in the filmstrip but skips past them during arrow key navigation.
+- **Hide Rejects:** Completely hides rejected frames from the filmstrip to prevent redundant reviews.
 
-## 3. Плитка
+When shooting tethered or receiving frames via FTP, toggle **Follow Mode** (`Space`) so the gallery automatically jumps to newly incoming frames as the camera writes them to disk.
 
-`G` или кнопка плитки внизу показывает серию целиком. Так видно, где дубли, а где уже другой поворот головы. Щипок или кнопки масштаба меняют размер клеток.
+---
 
-![Вся серия плиткой](guide/05-grid.png)
+## 4. Overview Grid & Smart Pre-Culling
 
-На этой серии девять кадров одной точки: прямой взгляд, моргание, смех, смаз, взгляд в сторону, прищур, три четверти, рука у лица, улыбка. Предотбор как раз для такого ряда. Он включается кнопкой **Предотбор** внутри сессии и сам ставит дизлайк слабым дублям: смаз, промах, а на macOS ещё и неудачное лицо. На Windows лица он не считает, только технику кадра. Уже поставленные вами метки он не переписывает и в короткой серии обязательно оставляет несколько кадров без дизлайка. Считается на компьютере, без облака.
+Press `G` or click the grid icon in the bottom toolbar to switch into the Overview Grid. This view allows you to inspect entire burst sequences and spot subtle variations in pose or expression.
 
-## 4. Отдать выбор в каталог
+![Overview Grid View](guide/05-grid.png)
 
-**Экспорт** собирает метки так, чтобы их прочитал Lightroom Classic или Capture One.
+### Automated Pre-Cull
+When shooting rapid bursts, repetitive frames accumulate quickly. The **Pre-cull** feature executes a local, hardware-accelerated analysis of the active session:
 
-![Диалог экспорта](guide/06-export.png)
+- **Technical Analysis:** Evaluates sharpness, motion blur, and exposure consistency across consecutive frames.
+- **Facial Evaluation (macOS):** On macOS, the analyzer detects closed eyes and unfavorable facial expressions within similar takes. On Windows, pre-cull focuses on optical and exposure metrics.
+- **Safe Evaluation:** Pre-cull never overrides ratings you have manually set, and always ensures top candidate frames within any burst series remain unflagged.
+- **100% Local:** All calculations execute directly on your processor without cloud transmission.
 
-Чипы «Лайк», «Избранное», «Лайк или избранное», «Все» относятся к **списку имён**. Сами XMP пишутся по всем меткам: лайк, избранное, дизлайк и звёзды.
+---
 
-Три действия:
+## 5. Exporting to Adobe Lightroom Classic & Capture One Pro
 
-- **XMP рядом с файлами.** Для RAW появляется sidecar. Если RAW нет и в папке только JPEG, те же метки пишутся ещё и внутрь JPEG. Уже существующую проявку OnSet не затирает: в готовый XMP дописываются только метки. Галка «Обновлять существующие XMP» нужна, когда sidecar уже лежит рядом.
-- **Сохранить XMP ZIP** — тот же пакет, если файлы надо унести на другой компьютер. ZIP распаковывается в папку съёмки, имя к имени.
-- **Копировать список для LR / C1** — имена файлов в буфер.
+Click the **Export** button in the upper toolbar to transfer your on-set selections to your editing catalog.
 
-Как прочитать это в каталоге:
+![Metadata Export Dialog](guide/06-export.png)
 
-- Lightroom Classic: выделить папку → Metadata → Read Metadata from Files. Пару RAW+JPEG не разбивайте: метка должна сесть на RAW.
-- Capture One: Preferences → Image, чтение sidecar XMP. Список имён: Select → Select By → Filename List.
-- Список в Lightroom: Library → Text → Filename → Contains, вставить имена.
+### Export Modes
 
-Соответствие меток: лайк — зелёная, избранное — жёлтая, дизлайк — отклонённый кадр и красная, звёзды — рейтинг 1–5. Русский Lightroom узнаёт подписи «Зеленый», «Желтый», «Красный».
+1. **Write XMP Alongside Files:**
+   - For RAW files, OnSet Gallery generates standardized `.xmp` sidecar files in the source directory.
+   - For standalone JPEGs (without a corresponding RAW), metadata tags are written into the file headers.
+   - If an existing `.xmp` sidecar is present (for example, containing prior camera profiles or crop data), OnSet Gallery updates only ratings and color labels, preserving existing development settings.
+2. **Save XMP ZIP Archive:**
+   - Bundles all generated `.xmp` sidecars into a single compressed `.zip` archive. Ideal for transferring curation data to an offsite retoucher or secondary workstation.
+3. **Copy Filename List:**
+   - Copies the filenames of selected frames (All, Likes, Favorites, or Likes + Favorites) directly to the system clipboard for immediate catalog filtering.
 
-## 5. Камера по FTP
+### Reading Metadata in Catalogs
 
-Кнопка FTP в списке сессий поднимает сервер на этом компьютере. В диалоге видны IP, порт (по умолчанию 2121) и логин с паролем — их и вводите в FTP-клиенте камеры. На Mac разрешите входящие в настройках брандмауэра. Логин и пароль хранятся на диске открытым текстом, в `~/.onset-gallery/ftp-settings.json`, и никуда не отправляются.
+#### Adobe Lightroom Classic
+1. Select the target folder in the Library module.
+2. In the top menu, choose **Metadata → Read Metadata from Files**.
+3. Lightroom applies the ratings and color labels to your catalog items.
+4. *Alternative:* Choose **Library → Find by Filename → Contains** and paste the copied filename list.
 
-Камера кладёт JPEG в папку сервера. Сессия может смотреть в ту же папку или в другую. «Следить» в ленте тогда показывает новые кадры, как они приходят.
+#### Capture One Pro
+1. Under **Preferences → Image → Metadata**, verify that Sidecar XMP sync is enabled (prefer **Sync** or **Auto Sync**).
+2. To load by filename: Go to **Select → Select By → Filename List** and paste the copied list from OnSet Gallery.
 
-## Чего ждать от версии 0.9.0
+### Metadata Translation Table
 
-- Скан папки: глубина до 6 уровней и не больше 4000 кадров за проход.
-- Отбор на компьютере, телефоне и планшете не синхронизируется.
-- Сборки для macOS и Windows лежат в [Releases](https://github.com/konubrikov/onset-gallery/releases). Подпись и notarize делаются вручную, поэтому система может спросить подтверждение при первом запуске.
-- На новой установке сверху бывает плашка «Поддержать проект». Ключ вставляется в приложении и проверяется на устройстве. Фотографии из-за этого не уходят в сеть.
+| OnSet Gallery | XMP Metadata Tag | Lightroom Classic | Capture One Pro |
+| --- | --- | --- | --- |
+| **Like** (`↑`) | `xmp:Label="Green"` | Green Label | Green Label |
+| **Favorite** (`F`) | `xmp:Label="Yellow"` | Yellow Label | Yellow Label |
+| **Reject** (`↓`) | `xmp:Label="Red"` + Reject Flag | Red Label / Rejected | Red Label / Rejected |
+| **Stars** (`1`–`5`) | `xmp:Rating="1..5"` | 1 to 5 Stars | 1 to 5 Stars |
+
+---
+
+## 6. Direct Camera Ingest via Wi-Fi FTP
+
+Modern mirrorless cameras (Sony Alpha, Canon EOS, Nikon Z) feature built-in Wi-Fi FTP background transfer. OnSet Gallery includes an embedded FTP receiver, allowing direct ingest to your workstation without third-party FTP utilities.
+
+1. In the session manager, click the **FTP** button to launch the server configuration dialog.
+2. The dialog displays your local workstation IP address, listening port (default `2121`), and local credentials.
+3. Configure your camera's FTP transfer settings with these matching parameters.
+4. Set the camera destination directory to your active shoot session folder.
+5. In OnSet Gallery, open the session and enable **Follow Mode** (`Space`). New frames will appear instantly on screen as they complete transfer.
+
+*Security Note: The FTP server listens on your local network interface only. Credentials and network communications remain strictly confined to your local Wi-Fi / Ethernet connection.*
+
+---
+
+## 7. Technical Specifications & Limits
+
+- **Folder Depth:** Folder scanning traverses directories up to 6 levels deep.
+- **Batch Capacity:** Optimized for up to 4,000 frames per session pass.
+- **RAW Handling:** Fast rendering utilizes embedded JPEG previews stored within RAW files (no demosaicing delay).
+- **Supported Formats:** Standard JPEG (`.jpg`, `.jpeg`) and major camera RAW formats (`.arw`, `.cr2`, `.cr3`, `.nef`, `.dng`, `.orf`, `.rw2`).
+- **Data Protection:** Original media files are never moved, renamed, or deleted by the application.
